@@ -6,6 +6,7 @@ import com.android.volley.VolleyError;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.ArrayType;
 import com.fasterxml.jackson.databind.type.SimpleType;
+import com.malidielhadad.lasalle.LasalleApp;
 import com.malidielhadad.lasalle.model.Event;
 import com.spothero.volley.JacksonRequest;
 import com.spothero.volley.JacksonRequestListener;
@@ -19,18 +20,14 @@ import java.util.List;
 
 public class EventManager {
 
-    private static EventManagerListener listener;
+    public static EventManagerListener listener;
 
-    interface EventManagerListener{
+    public interface EventManagerListener{
         void onEventsReceived(List<Event> events);
         void onEventsFailed();
 
     }
     public static void getAllEvents(final EventManagerListener listener) {
-        String url = UrlBuilder.getAllEventsUrl();
-    }
-
-    public static void getAllEvents() {
 
         String url = UrlBuilder.getAllEventsUrl();
 
@@ -57,6 +54,10 @@ public class EventManager {
                     }
                 });
 
+        LasalleApp
+                .getSharedInstance()
+                .getRequestQueue()
+                .add(requestEvents);
 
     }
 }

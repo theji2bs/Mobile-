@@ -5,7 +5,7 @@ package com.malidielhadad.lasalle.model;
  */
 
 public class Event {
-    private String id, name, imageUrl, updateAt, createdAt, description;
+    private String id, name, imageUrl, updatedAt, createdAt, description;
     private boolean active;
     private String latitude, longitude;
 
@@ -33,12 +33,12 @@ public class Event {
         this.imageUrl = imageUrl;
     }
 
-    public String getUpdateAt() {
-        return updateAt;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdateAt(String updateAt) {
-        this.updateAt = updateAt;
+    public void setUpdatedAt(String updateAt) {
+        this.updatedAt = updateAt;
     }
 
     public String getCreatedAt() {
