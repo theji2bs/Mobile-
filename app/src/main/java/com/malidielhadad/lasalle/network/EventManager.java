@@ -20,14 +20,27 @@ import java.util.List;
 
 public class EventManager {
 
-    public static EventManagerListener listener;
+    public static EventManager listener;
 
+
+    public interface Listener<T> {
+        void onReceived(T result);
+        void onFailed();
+    }
+
+  /*
     public interface EventManagerListener{
         void onEventsReceived(List<Event> events);
         void onEventsFailed();
 
     }
-    public static void getAllEvents(final EventManagerListener listener) {
+
+    public interface EventListener {
+        void onEventsReceived(Event event);
+        void onEventsFailed();
+    } */
+
+    public static void getAllEvents(final Listener<List<Event>> listener) {
 
         String url = UrlBuilder.getAllEventsUrl();
 
@@ -39,10 +52,10 @@ public class EventManager {
                         // callback
                         if(listener != null ) {
                             if(response != null){
-                                listener.onEventsReceived(Arrays.asList(response));
+                                listener.onReceived(Arrays.asList(response));
                             }
                             if(error != null){
-                                listener.onEventsFailed();
+                                listener.onFailed();
                             }
                         }
 
@@ -59,5 +72,35 @@ public class EventManager {
                 .getRequestQueue()
                 .add(requestEvents);
 
+    }
+
+    public static void getEvent(String eventId, final Listener<Event> listener) {
+
+        String url = UrlBuilder.getEventUrl(eventId);
+
+        JacksonRequest<Event> requestEvent = new JacksonRequest<Event>(Request.Method.GET,
+                url, new JacksonRequestListener<Event>() {
+            @Override
+            public void onResponse(Event response, int statusCode, VolleyError error) {
+
+                if(listener != null) {
+                    if(response != null) {
+                        listener.onReceived(response);
+                    } else if (error != null) {
+                        listener.onFailed();
+                    }
+                }
+
+            }
+
+            @Override
+            public JavaType getReturnType() {
+                return SimpleType.constructUnsafe(Event.class);
+            }
+        });
+        LasalleApp
+                .getSharedInstance()
+                .getRequestQueue()
+                .add(requestEvent);
     }
 }

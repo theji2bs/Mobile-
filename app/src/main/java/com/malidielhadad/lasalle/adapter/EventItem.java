@@ -28,6 +28,11 @@ public class EventItem extends AbstractItem<EventItem, EventItem.EventItemViewHo
 
             this.event = event;
         }
+
+    public Event getEvent() {
+        return event;
+    }
+
     @Override
     public EventItemViewHolder getViewHolder(View v) {
 

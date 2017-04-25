@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.malidielhadad.lasalle.LasalleApp;
 import com.malidielhadad.lasalle.R;
 import com.malidielhadad.lasalle.adapter.EventItem;
 import com.malidielhadad.lasalle.model.Event;
 import com.malidielhadad.lasalle.network.EventManager;
 import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,17 +61,35 @@ public class EventsListFragement extends Fragment {
 
         eventsAdapter = new FastItemAdapter<>();
 
+        eventsAdapter.withOnClickListener(new FastAdapter.OnClickListener<EventItem>() {
+                                              @Override
+                                              public boolean onClick(View v, IAdapter<EventItem> adapter, EventItem item, int position) {
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                                                  EventDetailFragment eventDetailFragment = EventDetailFragment.newInstance(item.getEvent().getId());
+
+
+                                                  getFragmentManager()
+                                                          .beginTransaction()
+                                                          .add(R.id.main_layout, eventDetailFragment)
+                                                          .addToBackStack(null)
+                                                          .commit();
+                                                  return true;
+                                              }
+                                          });
+
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         eventsRecylerView.setLayoutManager(linearLayoutManager);
 
 
         eventsRecylerView.setAdapter(eventsAdapter);
 
 
-        EventManager.getAllEvents(new EventManager.EventManagerListener() {
+        EventManager.getAllEvents(new EventManager.Listener<List<Event>>() {
+
+
             @Override
-            public void onEventsReceived(List<Event> events) {
+            public void onReceived(List<Event> events) {
 
                 List<EventItem> items = new ArrayList<>();
 
@@ -82,10 +103,12 @@ public class EventsListFragement extends Fragment {
             }
 
             @Override
-            public void onEventsFailed() {
+            public void onFailed() {
 
             }
         });
+
+
     }
 
 }

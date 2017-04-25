@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.malidielhadad.lasalle.activity.MainActivity">
+    tools:context="com.malidielhadad.lasalle.activity.MainActivity"
+    android:id="@+id/main_layout">
 
     <fragment
         android:id="@+id/fragment2"
         android:name="com.malidielhadad.lasalle.fragment.EventsListFragement"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
