@@ -36,14 +36,11 @@ public class EventDetailFragment extends BaseFragment {
 
 
     private static final String ARGUMENTS_EVENT_ID = "event_id";
+
+
     public static EventDetailFragment newInstance(String eventId){
-        EventDetailFragment eventDetailFragment = new EventDetailFragment();
-
-        Bundle arguments = new Bundle();
-        arguments.putString(ARGUMENTS_EVENT_ID, eventId);
-
         EventDetailFragment fragment = new EventDetailFragment();
-        fragment.setArguments(arguments);
+        fragment.setEventId(eventId);
 
         return fragment;
 
@@ -52,7 +49,18 @@ public class EventDetailFragment extends BaseFragment {
 
     public EventDetailFragment() {
         // Required empty public constructor
+
+        Bundle arguments = new Bundle();
+        setArguments(arguments);
     }
+
+    public void setEventId(String eventId){
+
+        Bundle arguments = getArguments();
+        arguments.putString(ARGUMENTS_EVENT_ID, eventId);
+    }
+
+
 
 
     @Override

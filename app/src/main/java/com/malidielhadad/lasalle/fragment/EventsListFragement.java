@@ -1,6 +1,7 @@
 package com.malidielhadad.lasalle.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.malidielhadad.lasalle.LasalleApp;
 import com.malidielhadad.lasalle.R;
+import com.malidielhadad.lasalle.activity.EventDetailActivity;
 import com.malidielhadad.lasalle.adapter.EventItem;
 import com.malidielhadad.lasalle.model.Event;
 import com.malidielhadad.lasalle.network.EventManager;
@@ -62,20 +64,27 @@ public class EventsListFragement extends Fragment {
         eventsAdapter = new FastItemAdapter<>();
 
         eventsAdapter.withOnClickListener(new FastAdapter.OnClickListener<EventItem>() {
-                                              @Override
-                                              public boolean onClick(View v, IAdapter<EventItem> adapter, EventItem item, int position) {
+            @Override
+            public boolean onClick(View v, IAdapter<EventItem> adapter, EventItem item, int position) {
+                /*
+                EventDetailFragment eventDetailFragment = EventDetailFragment.newInstance(item.getEvent().getId());
 
-                                                  EventDetailFragment eventDetailFragment = EventDetailFragment.newInstance(item.getEvent().getId());
 
+                getFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.main_layout, eventDetailFragment)
+                        .addToBackStack(null)
+                        .commit();
+                */
 
-                                                  getFragmentManager()
-                                                          .beginTransaction()
-                                                          .add(R.id.main_layout, eventDetailFragment)
-                                                          .addToBackStack(null)
-                                                          .commit();
-                                                  return true;
-                                              }
-                                          });
+                String eventId = item.getEvent().getId();
+
+                Intent intent = EventDetailActivity.createIntent(getContext(),eventId);
+                startActivity(intent);
+                return true;
+
+            }
+        });
 
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
