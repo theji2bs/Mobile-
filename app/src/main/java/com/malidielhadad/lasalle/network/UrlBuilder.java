@@ -6,7 +6,7 @@ package com.malidielhadad.lasalle.network;
 
 class UrlBuilder {
 
-    private static String baseUrl = "http://163.172.29.197:80000";
+    private static String baseUrl = "http://163.172.29.197:8000";
     private static String pathEvents = "events";
 
     public static String getAllEventsUrl() {

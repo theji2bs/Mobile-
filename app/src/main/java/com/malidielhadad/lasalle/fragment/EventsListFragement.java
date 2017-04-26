@@ -1,14 +1,18 @@
 package com.malidielhadad.lasalle.fragment;
 
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.malidielhadad.lasalle.LasalleApp;
@@ -78,6 +82,12 @@ public class EventsListFragement extends Fragment {
                 */
 
                 String eventId = item.getEvent().getId();
+
+                ImageView rowImageView = (ImageView)v.findViewById(R.id.row_event_imageView);
+
+                String transitionName = getString(R.string.transition_main_to_detail);
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),rowImageView,transitionName);
 
                 Intent intent = EventDetailActivity.createIntent(getContext(),eventId);
                 startActivity(intent);

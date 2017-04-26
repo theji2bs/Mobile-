@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.malidielhadad.lasalle.R;
 import com.malidielhadad.lasalle.model.Event;
 import com.mikepenz.fastadapter.items.AbstractItem;
@@ -57,6 +58,11 @@ public class EventItem extends AbstractItem<EventItem, EventItem.EventItemViewHo
 
         holder.titleTextView.setText(event.getName());
         holder.datetextView.setText(event.getCreatedAt());
+        holder.imageView.setImageDrawable(null);
+        Glide.with(holder.titleTextView.getContext())
+                .load(event.getImageUrl())
+                .crossFade()
+                .into(holder.imageView);
     }
 
     protected static class EventItemViewHolder extends RecyclerView.ViewHolder{

@@ -1,13 +1,42 @@
 package com.malidielhadad.lasalle.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by malidielhadad on 25/04/2017.
  */
 
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Event {
+
+    public static class Location {
+        private double latitude, longitude;
+
+        public double getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(double laditude) {
+            this.latitude = laditude;
+        }
+
+        public double getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(double longitude) {
+            this.longitude = longitude;
+        }
+    }
+
+
     private String id, name, imageUrl, updatedAt, createdAt, description;
-    private boolean active;
-    private String latitude, longitude;
+    private String information;
+    private Location location;
+
+
 
     public String getId() {
         return id;
@@ -57,28 +86,21 @@ public class Event {
         this.description = description;
     }
 
-    public boolean isActive() {
-        return active;
+
+    public String getInformation() {
+        return information;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setInformation(String information) {
+        this.information = information;
     }
 
-    public String getLatitude() {
-        return latitude;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
 

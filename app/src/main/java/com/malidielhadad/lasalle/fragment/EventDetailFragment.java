@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.malidielhadad.lasalle.R;
 import com.malidielhadad.lasalle.model.Event;
@@ -21,6 +23,8 @@ import butterknife.ButterKnife;
  */
 public class EventDetailFragment extends BaseFragment {
 
+    @BindView(R.id.image_imageview)
+    ImageView imageView;
 
     @BindView(R.id.title_textView)
     TextView titleTextView;
@@ -105,7 +109,10 @@ public class EventDetailFragment extends BaseFragment {
         titleTextView.setText(event.getName());
         dateTextView.setText(event.getCreatedAt());
 
-        // placetextView.setText(event.get);
+        Glide.with(this)
+                .load(event.getImageUrl())
+                .into(imageView);
+
 
         descriptionTextView.setText(event.getDescription());
     }
