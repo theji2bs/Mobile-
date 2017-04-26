@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.malidielhadad.lasalle.R;
 import com.malidielhadad.lasalle.model.Event;
 import com.malidielhadad.lasalle.network.EventManager;
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventDetailFragment extends Fragment {
+public class EventDetailFragment extends BaseFragment {
 
 
     @BindView(R.id.title_textView)
@@ -74,15 +75,19 @@ public class EventDetailFragment extends Fragment {
 
         String eventId = getArguments().getString(ARGUMENTS_EVENT_ID);
 
+        showLoading();
+
         EventManager.getEvent(eventId, new EventManager.Listener<Event>() {
             @Override
             public void onReceived(Event result) {
                 refresh(result);
+                hideLoading();
 
             }
 
             @Override
             public void onFailed() {
+                hideLoading();
 
             }
         });
